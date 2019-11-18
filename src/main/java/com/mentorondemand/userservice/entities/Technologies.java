@@ -1,12 +1,12 @@
 package com.mentorondemand.userservice.entities;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -28,8 +28,9 @@ public class Technologies implements Serializable {
 	@Column(name = "prerequisites")
 	private String prerequisites;
 
-	@ManyToMany(mappedBy = "mentorSkills")
-	Set<Users> skillsMentor;
+	// bi-directional many-to-one association to MentorSkills
+	@OneToMany(mappedBy = "tech")
+	private List<MentorSkills> mentorSkills;
 
 	public Technologies() {
 	}
@@ -58,4 +59,25 @@ public class Technologies implements Serializable {
 		this.prerequisites = prerequisites;
 	}
 
+	public List<MentorSkills> getMentorSkills() {
+		return this.mentorSkills;
+	}
+
+	public void setMentorSkills(List<MentorSkills> mentorSkills) {
+		this.mentorSkills = mentorSkills;
+	}
+
+	public MentorSkills addMentorSkills(MentorSkills mentorSkills) {
+		getMentorSkills().add(mentorSkills);
+		mentorSkills.setTechnologies(this);
+
+		return mentorSkills;
+	}
+
+	public MentorSkills removeMentorSkills(MentorSkills mentorSkills) {
+		getMentorSkills().remove(mentorSkills);
+		mentorSkills.setTechnologies(null);
+
+		return mentorSkills;
+	}
 }

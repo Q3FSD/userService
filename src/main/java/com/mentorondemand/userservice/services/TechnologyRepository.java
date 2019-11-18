@@ -12,8 +12,6 @@ import com.mentorondemand.userservice.entities.Technologies;
 
 public interface TechnologyRepository extends CrudRepository<Technologies, Integer> {
 
-	Optional<Technologies> findBySkillName(String skillName);
-
 	@Transactional
 	Optional<Technologies> deleteBySkillName(String skillName);
 }

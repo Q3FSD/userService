@@ -3,14 +3,10 @@ package com.mentorondemand.userservice.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -80,9 +76,9 @@ public class Users implements Serializable {
 	@OneToMany(mappedBy = "user")
 	private List<MentorCalendar> mentorCalendar;
 
-	@ManyToMany
-	@JoinTable(name = "mentor_skills", joinColumns = @JoinColumn(name = "user_name"), inverseJoinColumns = @JoinColumn(name = "skill_name"))
-	Set<Technologies> mentorSkills;
+	// bi-directional many-to-one association to MentorSkills
+	@OneToMany(mappedBy = "user")
+	private List<MentorSkills> mentorSkills;
 
 	public Users() {
 	}
@@ -211,5 +207,27 @@ public class Users implements Serializable {
 		mentorCalendar.setUser(null);
 
 		return mentorCalendar;
+	}
+
+	public List<MentorSkills> getMentorSkills() {
+		return this.mentorSkills;
+	}
+
+	public void setMentorSkills(List<MentorSkills> mentorSkills) {
+		this.mentorSkills = mentorSkills;
+	}
+
+	public MentorSkills addMentorSkills(MentorSkills mentorSkills) {
+		getMentorSkills().add(mentorSkills);
+		mentorSkills.setUser(this);
+
+		return mentorSkills;
+	}
+
+	public MentorSkills removeMentorSkills(MentorSkills mentorSkills) {
+		getMentorSkills().remove(mentorSkills);
+		mentorSkills.setUser(null);
+
+		return mentorSkills;
 	}
 }
