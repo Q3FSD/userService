@@ -21,7 +21,7 @@ import com.mentorondemand.userservice.entities.Users;
 import com.mentorondemand.userservice.services.UserRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://111.231.63.123:4200")
 @RequestMapping(path = "/v1/user")
 public class UserController {
 	@Autowired // This means to get the bean called userRepository
