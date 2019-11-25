@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +20,6 @@ import com.mentorondemand.userservice.services.MentorCalendarRepository;
 import com.mentorondemand.userservice.services.UserRepository;
 
 @RestController
-@CrossOrigin(origins = "http://111.231.63.123:4200")
 @RequestMapping(path = "/v1/mc")
 public class MentorCalendarController {
 	@Autowired // This means to get the bean called mentorCalendarRepository
